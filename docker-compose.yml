@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: currency_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: currency_user
+      POSTGRES_PASSWORD: currency_pass
+      POSTGRES_DB: currency_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U currency_user -d currency_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
