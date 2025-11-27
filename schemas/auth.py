@@ -1,3 +1,4 @@
+# schemas/auth.py
 from pydantic import BaseModel, EmailStr
 
 
@@ -11,7 +12,9 @@ class UserRead(BaseModel):
     email: EmailStr
 
     class Config:
-        from_attributes = True
+        from_attributes = True  # pydantic v1
+        # se você estiver usando pydantic v2, pode usar:
+        # from_attributes = True  # ainda funciona em modo compat
 
 
 class Token(BaseModel):
